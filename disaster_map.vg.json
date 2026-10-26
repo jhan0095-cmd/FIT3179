@@ -9,7 +9,7 @@
   "layer": [
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+        "url": "https://raw.githubusercontent.com/jhan0095-cmd/FIT3179/refs/heads/main/australia_states.geojson.json",
         "format": {
           "type": "json",
           "property": "features"
