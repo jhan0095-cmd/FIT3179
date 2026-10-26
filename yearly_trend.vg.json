@@ -9,30 +9,6 @@
   "data": {
     "url": "data/ExtremeWeather_2.csv"
   },
-  "params": [
-  {
-    "name": "startYear",
-    "value": 2010,
-    "bind": {
-      "input": "range",
-      "min": 2010,
-      "max": 2021,
-      "step": 1,
-      "name": "Start year: "
-    }
-  },
-  {
-    "name": "endYear",
-    "value": 2021,
-    "bind": {
-      "input": "range",
-      "min": 2010,
-      "max": 2021,
-      "step": 1,
-      "name": "End year: "
-    }
-  }
-  ],
   "transform": [
     {
       "calculate": "toDate(datum['Date/Time'])",
@@ -40,13 +16,6 @@
     },
     {
       "filter": "isValid(datum.eventDate)"
-    },
-    {
-      "calculate": "year(datum.eventDate)",
-      "as": "eventYear"
-    },
-    {
-      "filter": "datum.eventYear >= startYear && datum.eventYear <= endYear"
     },
     {
       "timeUnit": "year",

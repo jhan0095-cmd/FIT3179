@@ -49,3 +49,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading lollipop chart:", error);
   });
+
+  vegaEmbed("#treemap", "treemap.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Treemap loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading treemap:", error);
+  });
