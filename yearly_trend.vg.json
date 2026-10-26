@@ -1,11 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 750,
-  "height": 380,
-  "title": {
-    "text": "Recorded Disaster Events Over Time",
-    "subtitle": "Annual number of events in the dataset"
-  },
   "data": {
     "url": "data/ExtremeWeather_2.csv"
   },
@@ -32,45 +26,123 @@
       "groupby": ["year"]
     }
   ],
-  "mark": {
-    "type": "line",
-    "point": {
-      "filled": true,
-      "size": 65
-    },
-    "strokeWidth": 3,
-    "color": "#d65f45"
-  },
-  "encoding": {
-    "x": {
-      "field": "year",
-      "type": "temporal",
-      "title": "Year",
-      "axis": {
-        "format": "%Y",
-        "labelAngle": -45
+  "params": [
+    {
+      "name": "time_brush",
+      "select": {
+        "type": "interval",
+        "encodings": ["x"]
       }
-    },
-    "y": {
-      "field": "eventCount",
-      "type": "quantitative",
-      "title": "Number of recorded events",
-      "axis": {
-        "tickMinStep": 1
-      }
-    },
-    "tooltip": [
-      {
-        "field": "year",
-        "type": "temporal",
-        "title": "Year",
-        "format": "%Y"
+    }
+  ],
+  "vconcat": [
+    {
+      "width": 750,
+      "height": 220,
+      "title": {
+        "text": "Recorded Disaster Events Over Time",
+        "subtitle": "Overview: drag across the chart to select a time range"
       },
-      {
-        "field": "eventCount",
-        "type": "quantitative",
-        "title": "Recorded events"
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 65
+        },
+        "strokeWidth": 3,
+        "color": "#d65f45"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {
+            "format": "%Y",
+            "labelAngle": -45
+          }
+        },
+        "y": {
+          "field": "eventCount",
+          "type": "quantitative",
+          "title": "Recorded events",
+          "axis": {
+            "tickMinStep": 1
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "temporal",
+            "title": "Year",
+            "format": "%Y"
+          },
+          {
+            "field": "eventCount",
+            "type": "quantitative",
+            "title": "Recorded events"
+          }
+        ]
       }
-    ]
+    },
+    {
+      "width": 750,
+      "height": 220,
+      "title": "Selected Period — Detailed View",
+      "transform": [
+        {
+          "filter": {
+            "param": "time_brush"
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 65
+        },
+        "strokeWidth": 3,
+        "color": "#3977a8"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {
+            "format": "%Y",
+            "labelAngle": -45
+          }
+        },
+        "y": {
+          "field": "eventCount",
+          "type": "quantitative",
+          "title": "Recorded events",
+          "axis": {
+            "tickMinStep": 1
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "temporal",
+            "title": "Year",
+            "format": "%Y"
+          },
+          {
+            "field": "eventCount",
+            "type": "quantitative",
+            "title": "Recorded events"
+          }
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "x": "shared",
+      "y": "independent"
+    }
   }
 }
