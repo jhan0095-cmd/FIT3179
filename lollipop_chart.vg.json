@@ -1,0 +1,119 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 400,
+  "title": {
+    "text": "Recorded Disaster Events by State",
+    "subtitle": "Select a year range to compare event counts"
+  },
+  "data": {
+    "url": "data/ExtremeWeather_2.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "params": [
+    {
+      "name": "startYear",
+      "value": 2010,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2021,
+        "step": 1,
+        "name": "Start year: "
+      }
+    },
+    {
+      "name": "endYear",
+      "value": 2021,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2021,
+        "step": 1,
+        "name": "End year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "calculate": "toDate(datum['Date/Time'])",
+      "as": "eventDate"
+    },
+    {
+      "filter": "isValid(datum.eventDate)"
+    },
+    {
+      "calculate": "year(datum.eventDate)",
+      "as": "eventYear"
+    },
+    {
+      "filter": "datum.eventYear >= startYear && datum.eventYear <= endYear"
+    },
+    {
+      "filter": "isValid(datum.State) && datum.State != ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "EventCount"
+        }
+      ],
+      "groupby": ["State"]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "State",
+      "type": "nominal",
+      "sort": {
+        "field": "EventCount",
+        "order": "descending"
+      },
+      "title": "State"
+    },
+    "x": {
+      "field": "EventCount",
+      "type": "quantitative",
+      "title": "Number of recorded events"
+    },
+    "tooltip": [
+      {
+        "field": "State",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "EventCount",
+        "type": "quantitative",
+        "title": "Recorded events"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#e0a18f",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        },
+        "x2": {
+          "field": "EventCount"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "color": "#d65f45",
+        "size": 150
+      }
+    }
+  ]
+}

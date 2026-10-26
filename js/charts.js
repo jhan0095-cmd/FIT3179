@@ -39,3 +39,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading yearly trend chart:", error);
   });
+
+  vegaEmbed("#lollipop-chart", "lollipop_chart.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Lollipop chart loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading lollipop chart:", error);
+  });
