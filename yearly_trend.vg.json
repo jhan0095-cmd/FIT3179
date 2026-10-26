@@ -1,8 +1,38 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 380,
+  "title": {
+    "text": "Recorded Disaster Events Over Time",
+    "subtitle": "Use the year controls to select a time period"
+  },
   "data": {
     "url": "data/ExtremeWeather_2.csv"
   },
+  "params": [
+    {
+      "name": "startYear",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 1900,
+        "max": 2030,
+        "step": 1,
+        "name": "Start year: "
+      }
+    },
+    {
+      "name": "endYear",
+      "value": 2025,
+      "bind": {
+        "input": "range",
+        "min": 1900,
+        "max": 2030,
+        "step": 1,
+        "name": "End year: "
+      }
+    }
+  ],
   "transform": [
     {
       "calculate": "toDate(datum['Date/Time'])",
@@ -10,6 +40,13 @@
     },
     {
       "filter": "isValid(datum.eventDate)"
+    },
+    {
+      "calculate": "year(datum.eventDate)",
+      "as": "eventYear"
+    },
+    {
+      "filter": "datum.eventYear >= startYear && datum.eventYear <= endYear"
     },
     {
       "timeUnit": "year",
@@ -26,104 +63,45 @@
       "groupby": ["year"]
     }
   ],
-  "params": [
-    {
-      "name": "time_brush",
-      "select": {
-        "type": "interval",
-        "encodings": ["x"]
-      },
-      "views": ["overview"]
-    }
-  ],
-  "vconcat": [
-    {
-      "name": "overview",
-      "width": 750,
-      "height": 220,
-      "title": "Overview — Drag to Select a Time Range",
-      "mark": {
-        "type": "line",
-        "point": true,
-        "strokeWidth": 3,
-        "color": "#d65f45"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "temporal",
-          "title": "Year",
-          "axis": {
-            "format": "%Y",
-            "labelAngle": -45
-          }
-        },
-        "y": {
-          "field": "eventCount",
-          "type": "quantitative",
-          "title": "Recorded events"
-        },
-        "tooltip": [
-          {
-            "field": "year",
-            "type": "temporal",
-            "title": "Year",
-            "format": "%Y"
-          },
-          {
-            "field": "eventCount",
-            "type": "quantitative",
-            "title": "Recorded events"
-          }
-        ]
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 65
+    },
+    "strokeWidth": 3,
+    "color": "#d65f45"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "temporal",
+      "title": "Year",
+      "axis": {
+        "format": "%Y",
+        "labelAngle": -45
       }
     },
-    {
-      "width": 750,
-      "height": 220,
-      "title": "Detail — Selected Years",
-      "transform": [
-        {
-          "filter": {
-            "param": "time_brush"
-          }
-        }
-      ],
-      "mark": {
-        "type": "line",
-        "point": true,
-        "strokeWidth": 3,
-        "color": "#3977a8"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "temporal",
-          "title": "Year",
-          "axis": {
-            "format": "%Y",
-            "labelAngle": -45
-          }
-        },
-        "y": {
-          "field": "eventCount",
-          "type": "quantitative",
-          "title": "Recorded events"
-        },
-        "tooltip": [
-          {
-            "field": "year",
-            "type": "temporal",
-            "title": "Year",
-            "format": "%Y"
-          },
-          {
-            "field": "eventCount",
-            "type": "quantitative",
-            "title": "Recorded events"
-          }
-        ]
+    "y": {
+      "field": "eventCount",
+      "type": "quantitative",
+      "title": "Number of recorded events",
+      "axis": {
+        "tickMinStep": 1
       }
-    }
-  ]
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "temporal",
+        "title": "Year",
+        "format": "%Y"
+      },
+      {
+        "field": "eventCount",
+        "type": "quantitative",
+        "title": "Recorded events"
+      }
+    ]
+  }
 }
