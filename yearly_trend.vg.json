@@ -32,23 +32,19 @@
       "select": {
         "type": "interval",
         "encodings": ["x"]
-      }
+      },
+      "views": ["overview"]
     }
   ],
   "vconcat": [
     {
+      "name": "overview",
       "width": 750,
       "height": 220,
-      "title": {
-        "text": "Recorded Disaster Events Over Time",
-        "subtitle": "Overview: drag across the chart to select a time range"
-      },
+      "title": "Overview — Drag to Select a Time Range",
       "mark": {
         "type": "line",
-        "point": {
-          "filled": true,
-          "size": 65
-        },
+        "point": true,
         "strokeWidth": 3,
         "color": "#d65f45"
       },
@@ -65,10 +61,7 @@
         "y": {
           "field": "eventCount",
           "type": "quantitative",
-          "title": "Recorded events",
-          "axis": {
-            "tickMinStep": 1
-          }
+          "title": "Recorded events"
         },
         "tooltip": [
           {
@@ -88,7 +81,7 @@
     {
       "width": 750,
       "height": 220,
-      "title": "Selected Period — Detailed View",
+      "title": "Detail — Selected Years",
       "transform": [
         {
           "filter": {
@@ -98,10 +91,7 @@
       ],
       "mark": {
         "type": "line",
-        "point": {
-          "filled": true,
-          "size": 65
-        },
+        "point": true,
         "strokeWidth": 3,
         "color": "#3977a8"
       },
@@ -118,10 +108,7 @@
         "y": {
           "field": "eventCount",
           "type": "quantitative",
-          "title": "Recorded events",
-          "axis": {
-            "tickMinStep": 1
-          }
+          "title": "Recorded events"
         },
         "tooltip": [
           {
@@ -138,11 +125,5 @@
         ]
       }
     }
-  ],
-  "resolve": {
-    "scale": {
-      "x": "shared",
-      "y": "independent"
-    }
-  }
+  ]
 }
