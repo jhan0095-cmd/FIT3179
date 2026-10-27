@@ -1,23 +1,112 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "World Map Test",
-  "width": 650,
-  "height": 400,
-  "projection": {
-    "type": "equalEarth"
+  "title": {
+    "text": "Where Do Disasters Happen?",
+    "subtitle": "Recorded disaster locations across Australia"
   },
-  "data": {
-  "url": "https://raw.githubusercontent.com/jhan0095-cmd/FIT3179/refs/heads/main/ne_110m_admin_0_countries.json",
-  "format": {
-    "type": "topojson",
-    "feature": "ne_110m_admin_0_countries"
+  "width": 650,
+  "height": 480,
+  "projection": {
+    "type": "mercator",
+    "center": [133, -27],
+    "scale": 600
+  },
+  "params": [
+  {
+    "name": "eventCategory",
+    "value": "All categories",
+    "bind": {
+      "input": "select",
+      "options": [
+        "All categories",
+        "Hail",
+        "Lightning",
+        "Rain",
+        "Tornado",
+        "Waterspout",
+        "Wind"
+      ],
+      "name": "Event category: "
+    }
   }
-},
-  "mark": {
-    "type": "geoshape",
-    "fill": "#e8edf0",
-    "stroke": "#657786",
-    "strokeWidth": 0.5
+],
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+        "format": {
+          "type": "json"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#edf2f4",
+        "stroke": "#8799a5",
+        "strokeWidth": 0.8
+      }
+    },
+    {
+      "data": {
+        "url": "data/ExtremeWeather_2.csv"
+      },
+      "transform": [
+        {
+          "filter": "isValid(datum.Longitude) && isValid(datum.Latitude) && datum.Longitude >= 110 && datum.Longitude <= 155 && datum.Latitude >= -45 && datum.Latitude <= -9"
+        },
+        {
+    "filter": "eventCategory === 'All categories' || datum.Database === eventCategory"
   }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 20,
+        "opacity": 0.45,
+        "stroke": "white",
+        "strokeWidth": 0.2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Database",
+          "type": "nominal",
+          "title": "Event category",
+          "scale": {
+            "scheme": "category10"
+          },
+          "legend": {
+            "orient": "right"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Database",
+            "type": "nominal",
+            "title": "Event category"
+          },
+          {
+            "field": "Nearest town",
+            "type": "nominal",
+            "title": "Nearest town"
+          },
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Date/Time",
+            "type": "temporal",
+            "title": "Date"
+          }
+        ]
+      }
+    }
+  ]
 }
-
