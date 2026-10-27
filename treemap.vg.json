@@ -1,18 +1,11 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 750,
   "height": 450,
-  "title": {
-    "text": "Recorded Disaster Events by State",
-    "subtitle": "Select a year range to compare event counts"
-  },
-  "data": {
-    "url": "data/ExtremeWeather_2.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "params": [
+  "padding": 10,
+  "autosize": "pad",
+
+  "signals": [
     {
       "name": "startYear",
       "value": 2010,
@@ -36,87 +29,178 @@
       }
     }
   ],
-  "transform": [
+
+  "title": {
+    "text": "Recorded Disaster Events by Type",
+    "subtitle": "Rectangle size represents the number of recorded events",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "anchor": "start"
+  },
+
+  "data": [
     {
-      "calculate": "toDate(datum['Date/Time'])",
-      "as": "eventDate"
-    },
-    {
-      "filter": "isValid(datum.eventDate)"
-    },
-    {
-      "calculate": "year(datum.eventDate)",
-      "as": "eventYear"
-    },
-    {
-      "filter": "datum.eventYear >= startYear && datum.eventYear <= endYear"
-    },
-    {
-      "filter": "isValid(datum.State) && datum.State != ''"
-    },
-    {
-      "aggregate": [
+      "name": "rootNode",
+      "values": [
         {
-          "op": "count",
-          "as": "EventCount"
+          "id": "root",
+          "parent": null,
+          "Database": "All types",
+          "value": 0
         }
-      ],
-      "groupby": ["State"]
+      ]
     },
     {
-      "calculate": "'root'",
-      "as": "parent"
+      "name": "events",
+      "url": "data/ExtremeWeather_2.csv",
+      "format": {
+        "type": "csv"
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "year(toDate(datum['Date/Time']))",
+          "as": "eventYear"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum.eventYear) && datum.eventYear >= startYear && datum.eventYear <= endYear"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum.Database) && trim(datum.Database) !== '' && lower(trim(datum.Database)) !== 'undefined' && lower(trim(datum.Database)) !== 'nan'"
+        },
+        {
+          "type": "aggregate",
+          "groupby": ["Database"],
+          "ops": ["count"],
+          "as": ["EventCount"]
+        },
+        {
+          "type": "formula",
+          "expr": "'type_' + datum.Database",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "'root'",
+          "as": "parent"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.EventCount",
+          "as": "value"
+        }
+      ]
     },
     {
-      "treemap": "EventCount",
-      "groupby": ["parent"],
-      "size": ["width", "height"],
-      "method": "squarify"
+      "name": "tree",
+      "source": ["rootNode", "events"],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "value",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "method": "squarify",
+          "size": [
+            {"signal": "width"},
+            {"signal": "height"}
+          ],
+          "padding": 3,
+          "round": true
+        }
+      ]
     }
   ],
-  "mark": {
-    "type": "rect",
-    "stroke": "white",
-    "strokeWidth": 2
-  },
-  "encoding": {
-    "x": {
-      "field": "x0",
-      "type": "quantitative",
-      "scale": null,
-      "axis": null
-    },
-    "x2": {
-      "field": "x1"
-    },
-    "y": {
-      "field": "y0",
-      "type": "quantitative",
-      "scale": null,
-      "axis": null
-    },
-    "y2": {
-      "field": "y1"
-    },
-    "color": {
-      "field": "EventCount",
-      "type": "quantitative",
-      "title": "Recorded events",
-      "scale": {
-        "scheme": "oranges"
-      }
-    },
-    "tooltip": [
-      {
-        "field": "State",
-        "type": "nominal",
-        "title": "State"
+
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "events",
+        "field": "Database"
       },
-      {
-        "field": "EventCount",
-        "type": "quantitative",
-        "title": "Recorded events"
+      "range": {
+        "scheme": "tableau10"
       }
-    ]
-  }
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "tree",
+        "transform": [
+          {
+            "type": "filter",
+            "expr": "datum.Database !== 'All types' && datum.id !== 'root'"         
+          }
+        ]
+      },
+      "encode": {
+        "enter": {
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 2}
+        },
+        "update": {
+          "fill": {
+            "scale": "color",
+            "field": "Database"
+          },
+          "x": {"field": "x0"},
+          "y": {"field": "y0"},
+          "x2": {"field": "x1"},
+          "y2": {"field": "y1"},
+          "tooltip": {
+            "signal": "{'Disaster type': datum.Database, 'Recorded events': datum.value}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "tree",
+        "transform": [
+          {
+            "type": "filter",
+            "expr": "datum.Database !== 'All types' && datum.id !== 'root'"
+          }
+        ]
+      },
+      "encode": {
+        "enter": {
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fill": {"value": "white"},
+          "fontSize": {"value": 14},
+          "fontWeight": {"value": "bold"}
+        },
+        "update": {
+          "text": {
+            "signal": "datum.Database + '\\n' + format(datum.value, ',') + ' events'"
+          },
+          "x": {
+            "signal": "(datum.x0 + datum.x1) / 2"
+          },
+          "y": {
+            "signal": "(datum.y0 + datum.y1) / 2"
+          },
+          "opacity": {
+            "signal": "(datum.x1 - datum.x0) > 85 && (datum.y1 - datum.y0) > 40 ? 1 : 0"
+          }
+        }
+      }
+    }
+  ]
 }
