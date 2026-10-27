@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Disaster Events by Australian State",
+    "subtitle": "Earlier period: 1753–1972 | Later period: 1973–2014"
+  },
+  "data": {
+    "url": "data/ExtremeWeather_1.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(split(split(datum.startDate, ' ')[0], '/')[2])",
+      "as": "year"
+    },
+    {
+      "filter": "isValid(datum.year) && isValid(datum.regions)"
+    },
+    {
+      "calculate": "split(datum.regions, ';')",
+      "as": "regionList"
+    },
+    {
+      "flatten": ["regionList"]
+    },
+    {
+      "calculate": "trim(datum.regionList)",
+      "as": "state"
+    },
+    {
+      "filter": "indexof(['New South Wales', 'Victoria', 'Queensland', 'Western Australia', 'South Australia', 'Tasmania', 'Northern Territory', 'Australian Capital Territory'], datum.state) >= 0"
+    },
+    {
+      "calculate": "datum.year <= 1972 ? 'Earlier' : 'Later'",
+      "as": "period"
+    },
+    {
+      "aggregate": [
+        {"op": "count", "as": "events"}
+      ],
+      "groupby": ["state", "period"]
+    },
+    {
+      "pivot": "period",
+      "value": "events",
+      "groupby": ["state"]
+    },
+    {
+      "calculate": "isValid(datum.Earlier) ? datum.Earlier : 0",
+      "as": "earlier"
+    },
+    {
+      "calculate": "isValid(datum.Later) ? datum.Later : 0",
+      "as": "later"
+    }
+  ],
+  "width": 650,
+  "height": 300,
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#b7b7b7",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "State or territory"
+        },
+        "x": {
+          "field": "earlier",
+          "type": "quantitative",
+          "title": "Number of recorded events",
+          "scale": {"zero": true}
+        },
+        "x2": {"field": "later"},
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "earlier", "type": "quantitative", "title": "Earlier period"},
+          {"field": "later", "type": "quantitative", "title": "Later period"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 140,
+        "color": "#3274a1"
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "State or territory"
+        },
+        "x": {
+          "field": "earlier",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal"},
+          {"field": "earlier", "type": "quantitative", "title": "Earlier period"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 140,
+        "color": "#e1812c"
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "State or territory"
+        },
+        "x": {
+          "field": "later",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal"},
+          {"field": "later", "type": "quantitative", "title": "Later period"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    }
+  }
+}

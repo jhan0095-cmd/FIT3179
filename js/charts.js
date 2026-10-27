@@ -69,3 +69,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading deaths chart:", error);
   });
+
+  vegaEmbed("#connected-dot-plot","connected_dot_plot.vg.json",{ 
+  actions: false 
+})
+  .then(function () {
+    console.log("Connected dot plot loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading connected dot plot:", error);
+  });
