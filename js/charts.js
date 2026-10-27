@@ -89,3 +89,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading dot plot:", error);
   });
+
+    vegaEmbed("#scatter-plot", "scatter_plot.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Scatter plot loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading scatter plot:", error);
+  });

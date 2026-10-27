@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Evacuations vs Injuries in Disasters",
+    "subtitle": "Zoomed-in view: disasters with up to 10,000 evacuations and 500 injuries"
+  },
+  "data": {
+    "url": "data/ExtremeWeather_1.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(replace(datum.Evacuated, ',', ''))",
+      "as": "evacuated"
+    },
+    {
+      "calculate": "toNumber(replace(datum.Injuries, ',', ''))",
+      "as": "injuries"
+    },
+    {
+      "calculate": "toNumber(split(split(datum.startDate, ' ')[0], '/')[2])",
+      "as": "year"
+    },
+    {
+      "filter": "isValid(datum.evacuated) && isValid(datum.injuries) && datum.evacuated >= 0 && datum.injuries >= 0 && datum.evacuated <= 10000 && datum.injuries <= 500"
+    }
+  ],
+  "width": 600,
+  "height": 380,
+  "mark": {
+    "type": "point",
+    "filled": true,
+    "size": 55,
+    "opacity": 0.6,
+    "color": "#3274a1"
+  },
+  "encoding": {
+    "x": {
+      "field": "evacuated",
+      "type": "quantitative",
+      "title": "Number of People Evacuated",
+      "scale": {
+        "domain": [0, 10000]
+      },
+      "axis": {
+        "format": ",.0f",
+        "tickCount": 6,
+        "grid": true
+      }
+    },
+    "y": {
+      "field": "injuries",
+      "type": "quantitative",
+      "title": "Number of Injuries",
+      "scale": {
+        "domain": [0, 500]
+      },
+      "axis": {
+        "format": ",.0f",
+        "tickCount": 6,
+        "grid": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "title",
+        "type": "nominal",
+        "title": "Disaster"
+      },
+      {
+        "field": "year",
+        "type": "quantitative",
+        "title": "Year",
+        "format": ".0f"
+      },
+      {
+        "field": "evacuated",
+        "type": "quantitative",
+        "title": "People Evacuated",
+        "format": ",.0f"
+      },
+      {
+        "field": "injuries",
+        "type": "quantitative",
+        "title": "Injuries",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12,
+      "gridColor": "#e5e5e5",
+      "gridOpacity": 0.7
+    }
+  }
+}
