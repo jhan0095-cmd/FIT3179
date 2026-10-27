@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 650,
+  "height": 360,
+  "title": {
+    "text": "Deadliest Extreme Weather Events in Australia",
+    "subtitle": "Top 10 recorded events by death toll",
+    "anchor": "start",
+    "fontSize": 20,
+    "subtitleFontSize": 12,
+    "offset": 15
+  },
+  "data": {
+    "url": "data/ExtremeWeather_1.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "Deaths": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.Deaths) && datum.Deaths > 0 && isValid(datum.title)"
+    },
+    {
+      "filter": "indexof(lower(datum.title), 'bushfire') >= 0 || indexof(lower(datum.title), 'wildfire') >= 0 || indexof(lower(datum.title), 'flood') >= 0 || indexof(lower(datum.title), 'heatwave') >= 0 || indexof(lower(datum.title), 'cyclone') >= 0 || indexof(lower(datum.title), 'hail') >= 0 || indexof(lower(datum.title), 'severe storm') >= 0 || indexof(lower(datum.title), 'storm') >= 0 || indexof(lower(datum.title), 'drought') >= 0 || indexof(lower(datum.title), 'extreme weather') >= 0"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Deaths",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 10"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "title",
+      "type": "nominal",
+      "sort": {
+        "field": "Deaths",
+        "order": "descending"
+      },
+      "axis": {
+        "title": null,
+        "labelLimit": 280,
+        "labelFontSize": 11,
+        "labelPadding": 8,
+        "ticks": false,
+        "domain": false
+      }
+    },
+    "x": {
+      "field": "Deaths",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "title": "Number of recorded deaths",
+        "format": ",.0f",
+        "formatType": "number",
+        "tickCount": 6,
+        "labelFontSize": 10,
+        "labelOverlap": false,
+        "labelFlush": false,
+        "grid": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "title",
+        "type": "nominal",
+        "title": "Disaster event"
+      },
+      {
+        "field": "Deaths",
+        "type": "quantitative",
+        "title": "Recorded deaths",
+        "format": ","
+      },
+      {
+        "field": "rank",
+        "type": "ordinal",
+        "title": "Rank"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#477B9E",
+        "cornerRadiusEnd": 4,
+        "height": {
+          "band": 0.65
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "fontSize": 10,
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "field": "Deaths",
+          "type": "quantitative",
+          "format": ","
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#E5E5E5",
+      "gridOpacity": 0.7,
+      "labelColor": "#444444",
+      "titleColor": "#333333"
+    }
+  }
+}

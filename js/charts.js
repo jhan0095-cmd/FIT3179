@@ -59,3 +59,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading treemap:", error);
   });
+
+  vegaEmbed("#deaths_chart", "deaths_chart.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Deaths chart loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading deaths chart:", error);
+  });
