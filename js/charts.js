@@ -79,3 +79,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading connected dot plot:", error);
   });
+
+  vegaEmbed("#dot-plot", "dot_plot.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Dot plot loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading dot plot:", error);
+  });

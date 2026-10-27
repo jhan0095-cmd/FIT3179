@@ -1,0 +1,127 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Top 10 Disaster Categories by Median Injuries",
+    "subtitle": "Median recorded injuries per disaster; categories require at least 5 records"
+  },
+  "data": {
+    "url": "data/ExtremeWeather_1.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "indexof(datum.title, ' - ') >= 0 ? substring(datum.title, 0, indexof(datum.title, ' - ')) : split(datum.title, ' ')[0]",
+      "as": "category"
+    },
+    {
+      "calculate": "toNumber(replace(datum.Injuries, ',', ''))",
+      "as": "injuryCount"
+    },
+    {
+      "filter": "isValid(datum.injuryCount) && datum.injuryCount >= 0 && isValid(datum.category) && datum.category != ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "median",
+          "field": "injuryCount",
+          "as": "medianInjuries"
+        },
+        {
+          "op": "count",
+          "as": "recordCount"
+        }
+      ],
+      "groupby": ["category"]
+    },
+    {
+      "filter": "datum.recordCount >= 5"
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "medianInjuries",
+          "order": "descending"
+        },
+        {
+          "field": "category",
+          "order": "ascending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 10"
+    }
+  ],
+  "width": 650,
+  "height": 320,
+  "mark": {
+    "type": "point",
+    "filled": true,
+    "size": 150,
+    "color": "#3274a1"
+  },
+  "encoding": {
+    "y": {
+      "field": "category",
+      "type": "nominal",
+      "sort": {
+        "field": "medianInjuries",
+        "order": "descending"
+      },
+      "title": "Disaster category"
+    },
+    "x": {
+      "field": "medianInjuries",
+      "type": "quantitative",
+      "title": "Median recorded injuries per disaster",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.0f",
+        "grid": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "category",
+        "type": "nominal",
+        "title": "Disaster category"
+      },
+      {
+        "field": "medianInjuries",
+        "type": "quantitative",
+        "title": "Median injuries",
+        "format": ",.0f"
+      },
+      {
+        "field": "recordCount",
+        "type": "quantitative",
+        "title": "Records included"
+      },
+      {
+        "field": "rank",
+        "type": "quantitative",
+        "title": "Rank"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    }
+  }
+}
