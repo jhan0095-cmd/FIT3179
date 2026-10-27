@@ -1,22 +1,22 @@
+
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 850,
-  "height": 550,
   "title": "Australian State Boundaries Test",
+  "width": 650,
+  "height": 450,
   "projection": {
     "type": "mercator"
   },
   "data": {
-    "url": "https://raw.githubusercontent.com/jhan0095-cmd/FIT3179/refs/heads/main/australia_states.geojson.json",
+    "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
     "format": {
-      "type": "json",
-      "property": "features"
+      "type": "json"
     }
   },
   "mark": {
     "type": "geoshape",
     "fill": "#e8edf0",
-    "stroke": "#9aabb5",
-    "strokeWidth": 0.8
+    "stroke": "#657786",
+    "strokeWidth": 1
   }
 }
