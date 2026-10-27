@@ -8,10 +8,10 @@
   "signals": [
     {
       "name": "startYear",
-      "value": 2010,
+      "value": 1800,
       "bind": {
         "input": "range",
-        "min": 2010,
+        "min": 1800,
         "max": 2021,
         "step": 1,
         "name": "Start year: "
@@ -22,7 +22,7 @@
       "value": 2021,
       "bind": {
         "input": "range",
-        "min": 2010,
+        "min": 1800,
         "max": 2021,
         "step": 1,
         "name": "End year: "
@@ -31,7 +31,7 @@
   ],
 
   "title": {
-    "text": "Recorded Disaster Events by Type",
+    "text": "Australian Disaster Events by Type",
     "subtitle": "Rectangle size represents the number of recorded events",
     "fontSize": 18,
     "subtitleFontSize": 12,
@@ -52,14 +52,14 @@
     },
     {
       "name": "events",
-      "url": "data/ExtremeWeather_2.csv",
+      "url": "data/ExtremeWeather_1.csv",
       "format": {
         "type": "csv"
       },
       "transform": [
         {
           "type": "formula",
-          "expr": "year(toDate(datum['Date/Time']))",
+          "expr": "toNumber(split(split(datum.startDate, ' ')[0], '/')[2])",
           "as": "eventYear"
         },
         {
@@ -68,7 +68,16 @@
         },
         {
           "type": "filter",
-          "expr": "isValid(datum.Database) && trim(datum.Database) !== '' && lower(trim(datum.Database)) !== 'undefined' && lower(trim(datum.Database)) !== 'nan'"
+          "expr": "isValid(datum.title) && trim(datum.title) !== ''"
+        },
+        {
+          "type": "formula",
+          "expr": "indexof(datum.title, ' - ') >= 0 ? substring(datum.title, 0, indexof(datum.title, ' - ')) : split(datum.title, ' ')[0]",
+          "as": "Database"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum.Database) && trim(datum.Database) !== ''"
         },
         {
           "type": "aggregate",
@@ -103,20 +112,21 @@
           "parentKey": "parent"
         },
         {
-          "type": "treemap",
-          "field": "value",
-          "sort": {
-            "field": "value",
-            "order": "descending"
-          },
-          "method": "squarify",
-          "size": [
-            {"signal": "width"},
-            {"signal": "height"}
-          ],
-          "padding": 3,
-          "round": true
-        }
+  "type": "treemap",
+  "field": "value",
+  "sort": {
+    "field": "value",
+    "order": "descending"
+  },
+  "method": "squarify",
+  "size": [
+    {"signal": "width"},
+    {"signal": "height"}
+  ],
+  "padding": 3,
+  "round": true,
+  "as": ["x0", "y0", "x1", "y1"]
+}
       ]
     }
   ],
@@ -143,7 +153,7 @@
         "transform": [
           {
             "type": "filter",
-            "expr": "datum.Database !== 'All types' && datum.id !== 'root'"         
+            "expr": "datum.id !== 'root'"
           }
         ]
       },
@@ -174,7 +184,7 @@
         "transform": [
           {
             "type": "filter",
-            "expr": "datum.Database !== 'All types' && datum.id !== 'root'"
+            "expr": "datum.id !== 'root'"
           }
         ]
       },
