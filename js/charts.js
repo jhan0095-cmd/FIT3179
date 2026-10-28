@@ -109,3 +109,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading state choropleth:", error);
   });
+
+vegaEmbed("#density-map", "density_map.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("Density map loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading density map:", error);
+  });

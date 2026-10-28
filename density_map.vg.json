@@ -1,0 +1,150 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Extreme Weather Event Density",
+    "subtitle": "Disaster event locations grouped into geographic grid cells"
+  },
+  "width": 650,
+  "height": 480,
+  "projection": {
+    "type": "mercator",
+    "center": [133, -27],
+    "scale": 600
+  },
+  "params": [
+    {
+      "name": "eventRegion",
+      "value": "All regions",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All regions",
+          "Victoria",
+          "New South Wales",
+          "Queensland",
+          "Western Australia",
+          "South Australia",
+          "Tasmania",
+          "Northern Territory",
+          "Australian Capital Territory"
+        ],
+        "name": "Filter by region: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jhan0095-cmd/FIT3179/main/ne_110m_admin_0_countries.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f0f3f5",
+        "stroke": "#9aabb5",
+        "strokeWidth": 0.8
+      }
+    },
+    {
+      "data": {
+        "url": "data/ExtremeWeather_1.csv"
+      },
+      "transform": [
+        {
+          "filter": "isValid(datum.lon) && isValid(datum.lat)"
+        },
+        {
+          "filter": "eventRegion === 'All regions' || (isValid(datum.regions) && indexof(lower(datum.regions), lower(eventRegion)) >= 0)"
+        },
+        {
+          "bin": {
+            "step": 2
+          },
+          "field": "lon",
+          "as": ["lon_start", "lon_end"]
+        },
+        {
+          "bin": {
+            "step": 2
+          },
+          "field": "lat",
+          "as": ["lat_start", "lat_end"]
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "EventCount"
+            }
+          ],
+          "groupby": [
+            "lon_start",
+            "lon_end",
+            "lat_start",
+            "lat_end"
+          ]
+        },
+        {
+          "calculate": "(datum.lon_start + datum.lon_end) / 2",
+          "as": "lon_center"
+        },
+        {
+          "calculate": "(datum.lat_start + datum.lat_end) / 2",
+          "as": "lat_center"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.85,
+        "stroke": "white",
+        "strokeWidth": 0.4
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon_center",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat_center",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "EventCount",
+          "type": "quantitative",
+          "scale": {
+            "range": [15, 500]
+          },
+          "legend": null
+        },
+        "color": {
+        "field": "EventCount",
+        "type": "quantitative",
+        "title": "Events per grid cell",
+        "scale": {
+            "scheme": "oranges",
+            "type": "sqrt"
+        },
+        "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 250,
+            "titleFontSize": 12,
+            "labelFontSize": 10,
+            "titleLimit": 200
+            }
+        },
+        "tooltip": [
+          {
+            "field": "EventCount",
+            "type": "quantitative",
+            "title": "Recorded events",
+            "format":","
+          }
+        ]
+      }
+    }
+  ]
+}
