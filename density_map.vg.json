@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Extreme Weather Event Density",
-    "subtitle": "Disaster event locations grouped into geographic grid cells"
+    "subtitle": "Disaster event concentrations across Australia"
   },
   "width": 650,
   "height": 480,
@@ -28,7 +28,7 @@
           "Northern Territory",
           "Australian Capital Territory"
         ],
-        "name": "Filter by region: "
+        "name": "Filter by state: "
       }
     }
   ],
@@ -57,7 +57,19 @@
           "filter": "isValid(datum.lon) && isValid(datum.lat)"
         },
         {
-          "filter": "eventRegion === 'All regions' || (isValid(datum.regions) && indexof(lower(datum.regions), lower(eventRegion)) >= 0)"
+          "calculate": "split(datum.regions, ';')",
+          "as": "regionList"
+        },
+        {
+          "flatten": ["regionList"],
+          "as": ["State"]
+        },
+        {
+          "calculate": "trim(datum.State)",
+          "as": "State"
+        },
+        {
+          "filter": "eventRegion === 'All regions' || datum.State === eventRegion"
         },
         {
           "bin": {
@@ -84,7 +96,8 @@
             "lon_start",
             "lon_end",
             "lat_start",
-            "lat_end"
+            "lat_end",
+            "State"
           ]
         },
         {
@@ -98,9 +111,9 @@
       ],
       "mark": {
         "type": "circle",
-        "opacity": 0.85,
-        "stroke": "white",
-        "strokeWidth": 0.4
+        "opacity": 0.7,
+        "stroke": "transparent",
+        "strokeWidth": 0
       },
       "encoding": {
         "longitude": {
@@ -120,28 +133,33 @@
           "legend": null
         },
         "color": {
-        "field": "EventCount",
-        "type": "quantitative",
-        "title": "Events per grid cell",
-        "scale": {
-            "scheme": "oranges",
-            "type": "sqrt"
-        },
-        "legend": {
-            "orient": "bottom",
-            "direction": "horizontal",
-            "gradientLength": 250,
-            "titleFontSize": 12,
-            "labelFontSize": 10,
-            "titleLimit": 200
+            "field": "EventCount",
+            "type": "quantitative",
+            "title": "Events per grid cell",
+            "scale": {
+                "scheme": "oranges",
+                "type": "linear",
+                "range": ["#fdd0a2", "#e6550d"]
+            },
+            "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "gradientLength": 250,
+                "titleFontSize": 12,
+                "labelFontSize": 10
             }
         },
         "tooltip": [
           {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
             "field": "EventCount",
             "type": "quantitative",
             "title": "Recorded events",
-            "format":","
+            "format": ","
           }
         ]
       }
