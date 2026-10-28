@@ -99,3 +99,13 @@ vegaEmbed("#yearly-trend", "yearly_trend.vg.json", {
   .catch(function (error) {
     console.error("Error loading scatter plot:", error);
   });
+
+  vegaEmbed("#state-choropleth", "state_choropleth.vg.json", {
+  actions: false
+})
+  .then(function () {
+    console.log("State choropleth loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading state choropleth:", error);
+  });

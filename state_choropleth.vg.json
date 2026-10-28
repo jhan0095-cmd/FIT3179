@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Which States Record the Most Disasters?",
+    "subtitle": "Number of recorded extreme weather events by state or territory"
+  },
+  "width": 650,
+  "height": 480,
+  "projection": {
+    "type": "mercator",
+    "center": [133, -27],
+    "scale": 600
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+    "format": {
+      "type": "json",
+      "property": "features"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.properties.STATE_NAME",
+      "as": "StateName"
+    },
+    {
+      "lookup": "StateName",
+      "from": {
+        "data": {
+          "url": "data/state_counts.csv"
+        },
+        "key": "StateName",
+        "fields": ["EventCount"]
+      }
+    }
+  ],
+  "mark": {
+  "type": "geoshape",
+  "stroke": "#7A8D9A",
+  "strokeWidth": 0.8
+},
+"encoding": {
+  "color": {
+    "field": "EventCount",
+    "type": "quantitative",
+    "title": "Recorded events",
+    "scale": {
+      "scheme": "blues",
+      "domainMin": 0
+    },
+    "legend": {
+      "orient": "bottom",
+      "direction": "horizontal",
+      "gradientLength": 300,
+      "titleFontSize": 12,
+      "labelFontSize": 11
+    }
+  },
+  "tooltip": [
+    {
+      "field": "StateName",
+      "type": "nominal",
+      "title": "State"
+    },
+    {
+      "field": "EventCount",
+      "type": "quantitative",
+      "title": "Recorded events",
+      "format": ","
+    }
+  ]
+}
+}
