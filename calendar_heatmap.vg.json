@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": "container",
+  "width": 650,
   "height": 180,
   "title": "Daily Distribution of Disaster Events",
   "data": {
@@ -48,7 +48,8 @@
       "title": "Week of year",
       "axis": {
         "labelAngle": 0,
-        "tickCount": 12
+        "labelOverlap":true,
+        "tickCount": 14
       }
     },
     "y": {

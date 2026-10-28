@@ -32,8 +32,10 @@
                 <div>
                     <h2>Where Do Disasters Happen?</h2>
                     <p>
+                        <p>
                         Explore the locations and geographic distribution
                         of recorded disaster events across Australia.
+                        </p>
                     </p>
                 </div>
             </div>
@@ -41,26 +43,33 @@
             <div class="chart-grid maps-grid">
                 <article class="chart-card">
                     <h3>Disaster Events Map</h3>
-                    <p>
-                        Explore recorded event locations and their categories.
-                    </p>
+                      <p>
+                          This map shows the geographic locations of recorded disaster events
+                          across Australia, with different colours representing event categories.
+                          Explore the distribution of events to identify areas where disasters
+                          have been recorded more frequently.
+                      </p>
                     <div id="disaster-map" class="vis-container"></div>
                 </article>
 
                 <article class="chart-card">
                     <h3>State Choropleth Map</h3>
-                    <p>
-                        Compare recorded event counts across states
-                        and territories.
-                    </p>
+                      <p>
+                          This map compares recorded disaster event counts across Australian
+                          states and territories using different colour intensities. Darker
+                          shades represent higher recorded counts, helping viewers identify
+                          regional differences at a glance.
+                      </p>
                     <div id="state-choropleth" class="vis-container"></div>
                 </article>
 
                 <article class="chart-card">
                     <h3>Extreme Weather Event Density</h3>
-                    <p>
-                        Explore event concentrations and filter by region.
-                    </p>
+                      <p>
+                          This map highlights areas with higher concentrations of recorded
+                          extreme weather events. Use the region filter to explore how event
+                          concentrations vary across different parts of Australia.
+                      </p>
                     <div id="density-map" class="vis-container"></div>
                 </article>
             </div>
@@ -82,19 +91,22 @@
             <div class="chart-grid two-column-grid">
                 <article class="chart-card">
                     <h3>Calendar Heatmap</h3>
-                    <p>
-                        Explore the distribution of recorded events
-                        across days of the year.
-                    </p>
+                      <p>
+                          This calendar heatmap shows how recorded disaster events are
+                          distributed across the days of the year. Darker cells indicate
+                          dates with more recorded events, helping reveal recurring
+                          patterns and periods of higher activity.
+                      </p>
                     <div id="calendar-heatmap" class="vis-container"></div>
                 </article>
 
                 <article class="chart-card">
                     <h3>Yearly Trend</h3>
-                    <p>
-                        See how the number of recorded events changes
-                        from year to year.
-                    </p>
+                      <p>
+                          This line chart tracks the number of recorded disaster events
+                          across different years. Observe how the counts rise or fall over
+                          time to identify periods of increased or decreased recorded activity.
+                      </p>
                     <div id="yearly-trend" class="vis-container"></div>
                 </article>
             </div>
@@ -116,15 +128,23 @@
             <div class="chart-grid two-column-grid">
                 <article class="chart-card">
                     <h3>Treemap</h3>
-                    <p>Compare the relative proportions of event categories.</p>
+                      <p>
+                          This treemap compares the relative proportions of recorded events
+                          across different disaster categories. Larger rectangles represent
+                          categories with more recorded events, making it easier to see
+                          which types account for the largest share of the dataset.
+                      </p>
                     <div id="treemap" class="vis-container"></div>
                 </article>
 
                 <article class="chart-card">
                     <h3>Lollipop Chart</h3>
-                    <p>
-                        Compare recorded event counts across states and territories.
-                    </p>
+                      <p>
+                          This lollipop chart compares recorded disaster event counts
+                          across Australian states and territories. The position of each
+                          marker indicates the event count, making regional differences
+                          easier to compare.
+                      </p>
                     <div id="lollipop-chart" class="vis-container"></div>
                 </article>
             </div>
@@ -132,10 +152,12 @@
             <div class="chart-grid one-column-grid">
                 <article class="chart-card">
                     <h3>Deaths by State</h3>
-                    <p>
-                        Explore the deadliest recorded extreme weather events
-                        and their associated death tolls.
-                    </p>
+                      <p>
+                          This chart highlights the recorded extreme weather events with
+                          the highest death tolls. Comparing the bars helps show the scale
+                          of fatalities associated with individual events and illustrates
+                          the severe human consequences that disasters can have.
+                      </p>
                     <div id="deaths_chart" class="vis-container"></div>
                 </article>
             </div>
@@ -159,7 +181,10 @@
                 <article class="chart-card">
                     <h3>Connected Dot Plot</h3>
                     <p>
-                        Compare event counts between two time periods.
+                        This connected dot plot compares recorded event counts between
+                        two historical periods across Australian states and territories.
+                        The distance between the two markers shows how the counts differ
+                        between periods, making changes easier to compare.
                     </p>
 
                     <div class="dot-plot-legend">
@@ -179,8 +204,10 @@
                 <article class="chart-card">
                     <h3>Dot Plot</h3>
                     <p>
-                        Examine the distribution of recorded events
-                        across categories.
+                        This dot plot compares the distribution of recorded injuries
+                        across disaster categories. Each point represents a category's
+                        median recorded injuries per disaster, helping viewers identify
+                        categories with higher typical injury counts.
                     </p>
                     <div id="dot-plot" class="vis-container"></div>
                 </article>
@@ -188,17 +215,21 @@
                 <article class="chart-card">
                     <h3>Scatter Plot</h3>
                     <p>
-                        Explore the relationship between two variables
-                        in the dataset.
-                    </p>
+                      This scatter plot explores the relationship between disaster
+                      evacuations and recorded injuries. Each point represents a
+                      disaster record, allowing viewers to look for patterns and
+                      differences in the impacts of individual events.
+                  </p>
                     <div id="scatter-plot" class="vis-container"></div>
                 </article>
 
                 <article class="chart-card bump-card">
                     <h3>Bump Chart</h3>
                     <p>
-                        Track how state and territory rankings change
-                        over time. Rank 1 indicates the most events.
+                        This bump chart tracks changes in the yearly rankings of recorded
+                        extreme weather events across Australian states and territories.
+                        Rank 1 represents the state with the highest event count in that
+                        year, allowing viewers to compare how relative rankings change over time.
                     </p>
                     <div id="bump-chart" class="vis-container"></div>
                 </article>
@@ -206,9 +237,115 @@
         </section>
     </main>
 
-    <footer>
-        <p>Extreme Weather Events in Australia · Data visualisation project</p>
-    </footer>
+          <footer class="sources-footer">
+              <div class="sources-container">
+
+                  <h2>Sources and Methodology</h2>
+
+                  <div class="sources-grid">
+
+                      <!-- Data Sources -->
+                      <div class="sources-column">
+                          <h3>Data Sources</h3>
+
+                          <p>
+                              <strong>1. Australian Disaster Events Dataset</strong><br>
+                              Provides disaster-event records with category,
+                              impact and location information.
+                              <br>
+                              <a href="https://www.data.gov.au/data/dataset/disaster-events-with-category-impact-and-location"
+                                target="_blank" rel="noopener noreferrer">
+                                  View dataset on data.gov.au
+                              </a>
+                          </p>
+
+                          <p>
+                              <strong>2. Bureau of Meteorology Severe Storms Archive</strong><br>
+                              Provides records of severe storms in Australia
+                              for exploring storm types and their occurrence.
+                              <br>
+                              <a href="https://www.bom.gov.au/australia/stormarchive/"
+                                target="_blank" rel="noopener noreferrer">
+                                  View Severe Storms Archive
+                              </a>
+                          </p>
+                      </div>
+
+                      <!-- Geographic Data -->
+                      <div class="sources-column">
+                          <h3>Geographic Data</h3>
+
+                          <p>
+                              <strong>3. Australian State Boundaries</strong><br>
+                              GeoJSON boundary data used to represent Australian
+                              states and territories in geographic visualisations.
+                              <br>
+                              <a href="https://github.com/rowanhogan/australian-states"
+                                target="_blank" rel="noopener noreferrer">
+                                  View Australian States GeoJSON
+                              </a>
+                          </p>
+
+                          <p>
+                              <strong>4. Natural Earth Country Boundaries</strong><br>
+                              Geographic boundary data used to provide country-level
+                              map context.
+                              <br>
+                              <a href="https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/"
+                                target="_blank" rel="noopener noreferrer">
+                                  View Natural Earth data
+                              </a>
+                          </p>
+                      </div>
+
+                      <!-- Methodology -->
+                      <div class="sources-column">
+                          <h3>Data Processing</h3>
+
+                          <p>
+                              The event records are processed and organised
+                              according to the fields required for each
+                              visualisation. Depending on the dataset, these
+                              may include event dates, locations, categories
+                              and impact measures.
+                          </p>
+
+                          <p>
+                              Geographic coordinates and boundary data are used
+                              to display event locations and support spatial
+                              comparisons. Aggregation is applied where necessary
+                              to summarise records by year, state or event category.
+                          </p>
+                      </div>
+
+                      <!-- Visualisation Design -->
+                      <div class="sources-column">
+                          <h3>Visualisation Approach</h3>
+
+                          <p>
+                              Different visualisation idioms are used to explore
+                              the distribution and characteristics of extreme
+                              weather events across Australia.
+                          </p>
+
+                          <p>
+                              Maps highlight spatial patterns, while temporal
+                              charts show changes over time. Comparison charts
+                              and relationship plots help examine differences
+                              between event categories, locations and recorded
+                              impacts.
+                          </p>
+                      </div>
+
+                  </div>
+
+                  <div class="footer-bottom">
+                      <p>Author: Jun Chou Han</p>
+                      <p>10/2026</p>
+                  </div>
+
+              </div>
+          </footer>
 
     <script src="js/charts.js"></script>
 </body>
