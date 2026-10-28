@@ -119,3 +119,13 @@ vegaEmbed("#density-map", "density_map.vg.json", {
   .catch(function (error) {
     console.error("Error loading density map:", error);
   });
+
+vegaEmbed("#bump-chart", "bump_chart.vg.json", {
+    actions: false
+})
+  .then(function () {
+    console.log("Bump Chart loaded successfully.");
+  })
+  .catch(function (error) {
+    console.error("Error loading bump chart:", error);
+  });

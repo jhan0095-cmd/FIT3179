@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "How Have Disaster Rankings Changed Across States?",
+    "subtitle": "Yearly rankings based on recorded extreme weather events"
+  },
+  "width": 650,
+  "height": 400,
+  "data": {
+    "url": "data/ExtremeWeather_2.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toDate(datum['Date/Time'])",
+      "as": "ParsedDate"
+    },
+    {
+      "calculate": "year(datum.ParsedDate)",
+      "as": "Year"
+    },
+    {
+      "filter": "isValid(datum.ParsedDate) && isValid(datum.Year) && isValid(datum.State) && datum.State != ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "EventCount"
+        }
+      ],
+      "groupby": ["Year", "State"]
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "Rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "EventCount",
+          "order": "descending"
+        }
+      ],
+      "groupby": ["Year"]
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 65
+    },
+    "strokeWidth": 2.5
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "Rank",
+      "type": "quantitative",
+      "title": "Ranking (1 = most events)",
+      "scale": {
+        "reverse": true,
+        "zero": false
+      },
+      "axis": {
+        "tickMinStep": 1
+      }
+    },
+    "color": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State or territory"
+    },
+    "detail": {
+      "field": "State"
+    },
+    "order": {
+      "field": "Year",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "State",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "EventCount",
+        "type": "quantitative",
+        "title": "Recorded events",
+        "format": ","
+      },
+      {
+        "field": "Rank",
+        "type": "quantitative",
+        "title": "Rank"
+      }
+    ]
+  }
+}
