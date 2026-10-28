@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 650,
+  "width": "container",
   "height": 360,
   "title": {
     "text": "Deadliest Extreme Weather Events in Australia",

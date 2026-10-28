@@ -1,54 +1,339 @@
+
+/* ===== Global styles ===== */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f5f7fa;
-    color: #263238;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fa;
+    color: #243447;
+    line-height: 1.6;
 }
 
-header {
-    text-align: center;
-    padding: 20px;
+h1, h2, h3, p {
+    margin-top: 0;
 }
 
-h1 {
-    color: #000000;
+h2, h3 {
+    line-height: 1.3;
 }
 
-section {
-    background-color: white;
+/* ===== Hero header ===== */
+.hero {
+    background: linear-gradient(120deg, #17324d, #315c7b);
+    color: white;
+    padding: 52px 6%;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero .eyebrow {
+    margin-bottom: 8px;
+    color: #b9d8ef;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    max-width: 850px;
+    margin-bottom: 12px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+}
+
+.hero-description {
+    max-width: 720px;
+    margin-bottom: 0;
+    color: #e0eaf2;
+    font-size: 1.05rem;
+}
+
+/* ===== Main dashboard ===== */
+main {
+    width: min(1400px, 94%);
+    margin: 28px auto 48px;
+}
+
+.dashboard-section {
+    margin-bottom: 24px;
     padding: 24px;
-    margin: 20px 0;
-    border-radius: 8px;
+    border-radius: 16px;
 }
 
+.maps-section {
+    background: #e7f3fc;
+}
 
+.time-section {
+    background: #eaf5ef;
+}
+
+.impacts-section {
+    background: #fff5e8;
+}
+
+.comparisons-section {
+    background: #f1edfc;
+}
+
+/* ===== Section headings ===== */
+.section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #357fbd;
+    color: white;
+    font-weight: bold;
+}
+
+.time-section .section-number {
+    background: #24966f;
+}
+
+.impacts-section .section-number {
+    background: #ed8b24;
+}
+
+.comparisons-section .section-number {
+    background: #8b5bd6;
+}
+
+.section-heading h2 {
+    margin: 2px 0 5px;
+    color: #17324d;
+    font-size: 1.5rem;
+}
+
+.section-heading p {
+    margin-bottom: 0;
+    color: #526579;
+}
+
+/* ===== Chart grids ===== */
+.chart-grid {
+    display: grid;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.maps-grid,
+.two-column-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-column-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Make the density map span the full row */
+.maps-grid .chart-card:last-child {
+    grid-column: 1 / -1;
+}
+
+/* ===== Individual chart cards ===== */
+.chart-card {
+    min-width: 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(211, 224, 236, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(25, 53, 80, 0.04);
+}
+
+.chart-card h3 {
+    margin-bottom: 6px;
+    color: #203b57;
+    font-size: 1.12rem;
+}
+
+.chart-card > p {
+    margin-bottom: 16px;
+    color: #5c6d7d;
+    font-size: 0.92rem;
+}
+
+/* ===== Vega-Lite charts ===== */
+.vis-container {
+    width: 100%;
+    min-width: 0;
+}
+
+.chart-card .vega-embed {
+    max-width: 100%;
+}
+
+/* ===== Connected dot plot legend ===== */
 .dot-plot-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 12px 0 18px;
-  font-size: 14px;
-  color: #333;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: #526579;
 }
 
 .legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .legend-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    border-radius: 50%;
 }
 
 .legend-dot.earlier {
-  background-color: #3274a1;
+    background: #3274a1;
 }
 
 .legend-dot.later {
-  background-color: #e1812c;
+    background: #e1812c;
+}
+
+/* ===== Footer ===== */
+footer {
+    padding: 24px;
+    text-align: center;
+    color: #68798a;
+    font-size: 0.85rem;
+}
+
+/* ===== Responsive layout ===== */
+@media (max-width: 1050px) {
+    .three-column-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    main {
+        width: 94%;
+        margin-top: 16px;
+    }
+
+    .hero {
+        padding: 36px 5%;
+    }
+
+    .dashboard-section {
+        padding: 14px;
+        margin-bottom: 16px;
+    }
+
+    .section-heading {
+        gap: 10px;
+    }
+
+    .section-heading h2 {
+        font-size: 1.2rem;
+    }
+
+    .chart-grid,
+    .maps-grid,
+    .two-column-grid,
+    .three-column-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .maps-grid .chart-card:last-child {
+        grid-column: auto;
+    }
+
+    .chart-card {
+        padding: 14px;
+    }
+}
+
+/* Fix chart overflow inside cards */
+.chart-grid {
+    width: 100%;
+    min-width: 0;
+}
+
+.chart-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.chart-card .vis-container {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.chart-card .vega-embed,
+.chart-card .vega-embed > div {
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Give maps more room */
+.maps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.maps-grid .chart-card:last-child {
+    grid-column: 1 / -1;
+}
+
+/* Three charts across on wider screens */
+.three-column-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+    .three-column-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .chart-grid,
+    .maps-grid,
+    .two-column-grid,
+    .three-column-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .maps-grid .chart-card:last-child {
+        grid-column: auto;
+    }
+}
+
+/* Deaths chart below the treemap and lollipop */
+.one-column-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 18px;
+}
+
+.one-column-grid .chart-card {
+    width: 100%;
+    min-width: 0;
+}
+
+.one-column-grid #deaths_chart {
+    width: 100%;
+    min-width: 0;
 }

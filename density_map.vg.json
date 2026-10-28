@@ -4,7 +4,7 @@
     "text": "Extreme Weather Event Density",
     "subtitle": "Disaster event concentrations across Australia"
   },
-  "width": 650,
+  "width": "container",
   "height": 480,
   "projection": {
     "type": "mercator",

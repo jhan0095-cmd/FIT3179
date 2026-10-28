@@ -4,7 +4,7 @@
     "text": "How Have Disaster Rankings Changed Across States?",
     "subtitle": "Yearly rankings based on recorded extreme weather events"
   },
-  "width": 650,
+  "width": "container",
   "height": 400,
   "data": {
     "url": "data/ExtremeWeather_2.csv",

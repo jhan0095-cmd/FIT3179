@@ -4,7 +4,7 @@
     "text": "Which States Record the Most Disasters?",
     "subtitle": "Number of recorded extreme weather events by state or territory"
   },
-  "width": 650,
+  "width": "container",
   "height": 480,
   "projection": {
     "type": "mercator",

@@ -4,7 +4,7 @@
     "text": "Where Do Disasters Happen?",
     "subtitle": "Recorded disaster locations across Australia"
   },
-  "width": 650,
+  "width": "container",
   "height": 480,
   "projection": {
     "type": "mercator",

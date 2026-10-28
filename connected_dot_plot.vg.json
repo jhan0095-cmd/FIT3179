@@ -54,7 +54,7 @@
       "as": "later"
     }
   ],
-  "width": 650,
+  "width": "container",
   "height": 300,
   "layer": [
     {

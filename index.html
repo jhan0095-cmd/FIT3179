@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,134 +14,202 @@
 </head>
 
 <body>
-    <header>
-        <h1>Extreme Weather Events in Australia</h1>
-        <p>Exploring disaster patterns, locations and impacts.</p>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Extreme Weather Events in Australia</h1>
+            <p class="hero-description">
+                Explore where extreme weather events occur, how patterns
+                change over time, and the impacts they have.
+            </p>
+        </div>
     </header>
 
     <main>
-        <section>
-            <h2>Disaster Events by State</h2>
-            <p>This bar chart compare recorded disaster events across Australia.</p>
+        <!-- SECTION 1: MAPS -->
+        <section class="dashboard-section maps-section">
+            <div class="section-heading">
+                <span class="section-number">01</span>
+                <div>
+                    <h2>Where Do Disasters Happen?</h2>
+                    <p>
+                        Explore the locations and geographic distribution
+                        of recorded disaster events across Australia.
+                    </p>
+                </div>
+            </div>
 
-            <div id="state-chart"></div>
+            <div class="chart-grid maps-grid">
+                <article class="chart-card">
+                    <h3>Disaster Events Map</h3>
+                    <p>
+                        Explore recorded event locations and their categories.
+                    </p>
+                    <div id="disaster-map" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>State Choropleth Map</h3>
+                    <p>
+                        Compare recorded event counts across states
+                        and territories.
+                    </p>
+                    <div id="state-choropleth" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Extreme Weather Event Density</h3>
+                    <p>
+                        Explore event concentrations and filter by region.
+                    </p>
+                    <div id="density-map" class="vis-container"></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TIME -->
+        <section class="dashboard-section time-section">
+            <div class="section-heading">
+                <span class="section-number">02</span>
+                <div>
+                    <h2>When Do Disaster Events Occur?</h2>
+                    <p>
+                        Explore temporal patterns and changes in
+                        recorded events over time.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-column-grid">
+                <article class="chart-card">
+                    <h3>Calendar Heatmap</h3>
+                    <p>
+                        Explore the distribution of recorded events
+                        across days of the year.
+                    </p>
+                    <div id="calendar-heatmap" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Yearly Trend</h3>
+                    <p>
+                        See how the number of recorded events changes
+                        from year to year.
+                    </p>
+                    <div id="yearly-trend" class="vis-container"></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EVENT TYPES AND IMPACTS -->
+                
+        <section class="dashboard-section impacts-section">
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <h2>Event Types and Impacts</h2>
+                    <p>
+                        Compare disaster categories and their recorded impacts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-column-grid">
+                <article class="chart-card">
+                    <h3>Treemap</h3>
+                    <p>Compare the relative proportions of event categories.</p>
+                    <div id="treemap" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Lollipop Chart</h3>
+                    <p>
+                        Compare recorded event counts across states and territories.
+                    </p>
+                    <div id="lollipop-chart" class="vis-container"></div>
+                </article>
+            </div>
+
+            <div class="chart-grid one-column-grid">
+                <article class="chart-card">
+                    <h3>Deaths by State</h3>
+                    <p>
+                        Explore the deadliest recorded extreme weather events
+                        and their associated death tolls.
+                    </p>
+                    <div id="deaths_chart" class="vis-container"></div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: COMPARISONS -->
+        <section class="dashboard-section comparisons-section">
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <h2>Comparisons and Relationships</h2>
+                    <p>
+                        Compare time periods, distributions and
+                        relationships between variables.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-column-grid">
+                <article class="chart-card">
+                    <h3>Connected Dot Plot</h3>
+                    <p>
+                        Compare event counts between two time periods.
+                    </p>
+
+                    <div class="dot-plot-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot earlier"></span>
+                            <span>Earlier period (1753–1972)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot later"></span>
+                            <span>Later period (1973–2014)</span>
+                        </div>
+                    </div>
+
+                    <div id="connected-dot-plot" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Dot Plot</h3>
+                    <p>
+                        Examine the distribution of recorded events
+                        across categories.
+                    </p>
+                    <div id="dot-plot" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Scatter Plot</h3>
+                    <p>
+                        Explore the relationship between two variables
+                        in the dataset.
+                    </p>
+                    <div id="scatter-plot" class="vis-container"></div>
+                </article>
+
+                <article class="chart-card bump-card">
+                    <h3>Bump Chart</h3>
+                    <p>
+                        Track how state and territory rankings change
+                        over time. Rank 1 indicates the most events.
+                    </p>
+                    <div id="bump-chart" class="vis-container"></div>
+                </article>
+            </div>
         </section>
     </main>
 
+    <footer>
+        <p>Extreme Weather Events in Australia · Data visualisation project</p>
+    </footer>
+
     <script src="js/charts.js"></script>
-
-<section class="visual-section">
-  <h2>Where Do Disasters Happen?</h2>
-  <p>
-    This map shows the geographic distribution
-    of recorded disaster events across Australia.
-  </p>
-
-  <div id="disaster-map"></div>
-</section>
-
-<section class="visual-section">
-  <h2>When Do Disaster Events Occur?</h2>
-  <p>
-    This calendar heatmap shows the distribution of
-    recorded disaster events across days of the year.
-    Darker colours indicate dates with more recorded events.
-  </p>
-  <div id="calendar-heatmap"></div>
-</section>
-
-<section class="visual-section">
-  <h2>How Have Recorded Disaster Events Changed Over Time?</h2>
-  <p>
-    This line chart shows the number of disaster events
-    recorded in each year. Hover over a point to inspect
-    the annual count.
-  </p>
-  <div id="yearly-trend"></div>
-</section>
-
-<section class="visual-section">
-  <h2>Lolipop chart</h2>
-  <p>
-    ....
-  </p>
-  <div id="lollipop-chart"></div>
-</section>
-
-<section class="visual-section">
-  <h2>Treemap</h2>
-  <p>
-    ....
-  </p>
-  <div id="treemap"></div>
-</section>
-
-<section class="visual-section">
-  <h2>Death Chart</h2>
-  <p>
-    ....
-  </p>
-  <div id="deaths_chart"></div>
-</section>
-
-<section class="chart-section">
-  <h2>Connected dot plot</h2>
-
-  <div class="dot-plot-legend">
-    <div class="legend-item">
-      <span class="legend-dot earlier"></span>
-      <span>Earlier period (1753–1972)</span>
-    </div>
-
-    <div class="legend-item">
-      <span class="legend-dot later"></span>
-      <span>Later period (1973–2014)</span>
-    </div>
-  </div>
-  <div id="connected-dot-plot"></div>
-</section>
-
-<section class="visual-section">
-  <h2>Dot plot</h2>
-  <p>
-    ....
-  </p>
-  <div id="dot-plot"></div>
-</section>
-
-<section class="chart-section">
-  <h2>Scatter Plot</h2> 
-  <p>
-    ....
-  </p>
-  <div id="scatter-plot"></div>
-</section>
-
-<section class="chart-section">
-  <h2>Disaster Events by State</h2>
-  <p>
-    Compare the number of recorded extreme weather events
-    across Australian states and territories.
-  </p>
-  <div id="state-choropleth"></div>
-</section>
-
-<section class="chart-section">
- <h2>Extreme Weather Event Density</h2>
-  <p>
-    Explore concentrations of recorded disaster events
-    and filter the map by region.
-  </p>
-  <div id="density-map" class="vis-container"></div>
-</section>
-
-<section class="chart-section">
- <h2>Bump chart</h2>
-  <p>
-    ...
-  </p>
-  <div id="bump-chart"></div>
-</section>
-
 </body>
 </html>

@@ -61,7 +61,7 @@
       "filter": "datum.rank <= 10"
     }
   ],
-  "width": 650,
+  "width": "container",
   "height": 320,
   "mark": {
     "type": "point",

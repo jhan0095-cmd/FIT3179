@@ -1,14 +1,3 @@
-var chart = "state_chart.vg.json";
-
-vegaEmbed("#state-chart", chart, {
-  actions: false
-})
-  .then(function (result) {
-    console.log("State chart loaded successfully.");
-  })
-  .catch(function (error) {
-    console.error("Error loading state chart:", error);
-  });
 
 vegaEmbed("#disaster-map", "disaster_map.vg.json", {
   actions: false

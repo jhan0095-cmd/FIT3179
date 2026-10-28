@@ -27,7 +27,7 @@
       "filter": "isValid(datum.evacuated) && isValid(datum.injuries) && datum.evacuated >= 0 && datum.injuries >= 0 && datum.evacuated <= 10000 && datum.injuries <= 500"
     }
   ],
-  "width": 600,
+  "width": "container",
   "height": 380,
   "mark": {
     "type": "point",

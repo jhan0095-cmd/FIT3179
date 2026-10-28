@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 750,
+  "width": "container",
   "height": 380,
   "title": {
     "text": "Recorded Disaster Events Over Time",
